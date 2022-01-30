@@ -14,15 +14,8 @@ object StmDiningPhilosophers extends App {
 
   final case class Seats(seats: Vector[Placement])
 
-  def takeForks(left: TRef[Option[Forks]], right: TRef[Option[Forks]]): STM[Nothing, (Forks, Forks)] = for {
-    leftOption <- left.get
-    rightOption <- right.get
-    (leftFork, rightFork) <- (leftOption, rightOption) match {
-      case (None, _) => STM.retry
-      case (_, None) => STM.retry
-      case (Some(leftForks: Forks), Some(rightForks: Forks)) => STM.succeed(leftForks, rightForks)
-    }
-  } yield (leftFork, rightFork)
+  def takeForks(left: TRef[Option[Forks]], right: TRef[Option[Forks]]): STM[Nothing, (Forks, Forks)] =
+    (left.get collect { case Some(forks) => forks }) zip (right.get collect { case Some(forks) => forks })
 
   def putForks(left: TRef[Option[Forks]], right: TRef[Option[Forks]])(tuple: (Forks, Forks)): STM[Nothing, Unit] = {
     val (leftFork, rightFork) = tuple
