@@ -20,6 +20,10 @@ val dependency = List(
   "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpVersion,
   "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpVersion,
 
+  "dev.zio" %% "zio" % "1.0.12",
+  "dev.zio" %% "zio-streams" % "1.0.12",
+  "dev.zio" %% "zio-test" % "1.0.13",
+
   "org.scalatest" %% "scalatest" % "3.3.0-SNAP3",
   "org.slf4j" % "slf4j-simple" % "2.0.0-alpha5"
 )
