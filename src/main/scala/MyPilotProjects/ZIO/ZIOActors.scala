@@ -29,10 +29,10 @@ object ZIOActors extends App {
   }
 
   override def run(args: List[String]): URIO[zio.ZEnv, ExitCode] = {
-    val temperatures = (0 to 100).map(_.toDouble)
+    val temperatures = (100 to 200).map(_.toDouble)
 
     (for {
-      actor <- makeActor(35.5)
+      actor <- makeActor(135.5)
       _ <- ZIO.foreachPar(temperatures) { temp => actor(AdjustTemperature(temp)) }
       temp <- actor(ReadTemperature)
       _ <- putStrLn(s"Final temperature is $temp.")

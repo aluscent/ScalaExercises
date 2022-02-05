@@ -37,5 +37,4 @@ object TestCases1 {
     implicitly[TrueType =:= FalseType#Or[TrueType]]
     implicitly[\/[TrueType,FalseType] =:= TrueType]
   }
-  
 }
